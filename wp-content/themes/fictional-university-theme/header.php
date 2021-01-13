@@ -1,10 +1,10 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
-    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <?php wp_head(); ?>
+	<?php wp_head(); ?>
 </head>
 <body>
 <header class="site-header">
@@ -17,14 +17,16 @@
         <div class="site-header__menu group">
             <nav class="main-navigation">
                 <ul>
-                    <li <?php if (is_page('about-us') || wp_get_post_parent_id(get_the_ID()) == 5)
-                        echo 'class="current-menu-item"' ?>><a href="<?php echo site_url() . '/about-us'; ?>">About Us</a></li>
+                    <li <?php if ( is_page( 'about-us' ) || wp_get_post_parent_id( get_the_ID() ) == 5 )
+						echo 'class="current-menu-item"' ?>><a href="<?php echo site_url() . '/about-us'; ?>">About Us</a></li>
                     <li><a href="#">Programs</a></li>
-                    <li><a href="#">Events</a></li>
+                    <li <?php if ( get_post_type() == 'event' ) {
+						echo 'class="current-menu-item"';
+					} ?>><a href="<?php echo get_post_type_archive_link( 'event' ); ?>">Events</a></li>
                     <li><a href="#">Campuses</a></li>
-                    <li <?php if (get_post_type() == 'post') {
-                        echo 'class="current-menu-item"';
-                    } ?>><a href="<?php echo site_url('/blog'); ?>">Blog</a></li>
+                    <li <?php if ( get_post_type() == 'post' ) {
+						echo 'class="current-menu-item"';
+					} ?>><a href="<?php echo site_url( '/blog' ); ?>">Blog</a></li>
                 </ul>
             </nav>
             <div class="site-header__util">

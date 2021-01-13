@@ -17,7 +17,7 @@
 
 				<?php
 				$events = new WP_Query( [
-					'post_type'      => 'events',
+					'post_type'      => 'event',
 					'posts_per_page' => 2
 				] );
 				?>
@@ -40,7 +40,9 @@
 				wp_reset_postdata();
 				?>
 
-                <p class="t-center no-margin"><a href="#" class="btn btn--blue">View All Events</a></p>
+                <p class="t-center no-margin"><a href="<?php echo get_post_type_archive_link( 'event' ) ?>"
+                                                 class="btn btn--blue">View All Events</a>
+                </p>
             </div>
         </div>
         <div class="full-width-split__two">
@@ -65,7 +67,7 @@
                         <div class="event-summary__content">
                             <h5 class="event-summary__title headline headline--tiny">
                                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
-                            <p><?php echo wp_trim_excerpt(); ?>
+                            <p><?php the_excerpt(); ?>
                                 <a href="<?php the_permalink(); ?>" class="nu gray">Read more</a></p>
                         </div>
                     </div>
@@ -75,7 +77,8 @@
 				wp_reset_postdata();
 				?>
 
-                <p class="t-center no-margin"><a href="<?php echo site_url( '/blog' ); ?>" class="btn btn--yellow">View All Blog Posts</a>
+                <p class="t-center no-margin"><a href="<?php echo get_post_type_archive_link( 'post' ); ?>" class="btn btn--yellow">View All
+                        Blog Posts</a>
                 </p>
             </div>
         </div>
