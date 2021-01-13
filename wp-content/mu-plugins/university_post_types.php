@@ -1,9 +1,11 @@
 <?php
 
 function university_post_type() {
-	register_post_type( 'events', [
-		'public'    => true,
-		'labels'    => [
+	register_post_type( 'event', [
+		'show_in_rest' => true,
+		'supports'     => [ 'title', 'editor', 'excerpt' ],
+		'public'       => true,
+		'labels'       => [
 			'name'          => 'Events',
 			'singular_name' => 'Event',
 			'add_new'       => 'Add new event',
@@ -11,7 +13,11 @@ function university_post_type() {
 			'edit_item'     => 'Edit Event',
 			'all_items'     => 'All Events'
 		],
-		'menu_icon' => 'dashicons-calendar'
+		'menu_icon'    => 'dashicons-calendar',
+		'has_archive'  => true,
+		'rewrite'      => [
+			'slug' => 'events'
+		]
 	] );
 }
 
