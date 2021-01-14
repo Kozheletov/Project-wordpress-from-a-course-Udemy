@@ -30,14 +30,33 @@ add_action( 'after_setup_theme', 'university_features' );
 /**
  * Change the excerpt more string
  */
-function universety_excerpt( $more ) {
+function university_excerpt() {
 	return '...';
 }
 
-add_filter( 'excerpt_more', 'universety_excerpt' );
+add_filter( 'excerpt_more', 'university_excerpt' );
 
-function universety_excerpt_length( $length ) {
+function university_excerpt_length() {
 	return 15;
 }
 
-add_filter( 'excerpt_length', 'universety_excerpt_length' );
+add_filter( 'excerpt_length', 'university_excerpt_length' );
+
+function university_adjust_query( $query ) {
+	if ( ! is_admin() && is_post_type_archive( 'event' ) && $query->is_main_query() ) {
+		$today = date( "Ymd" );
+		$query->set( 'meta_key', 'event_date' );
+		$query->set( 'orderby', 'meta_value_num' );
+		$query->set( 'order', 'ASC' );
+		$query->set( 'meta_query', [
+			[
+				'key'     => 'event_date',
+				'compare' => '>=',
+				'value'   => $today,
+				'type'    => 'numeric'
+			]
+		] );
+	}
+}
+
+add_action( 'pre_get_posts', 'university_adjust_query' );

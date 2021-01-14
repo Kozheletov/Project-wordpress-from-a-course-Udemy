@@ -7,9 +7,10 @@ the_post();
              style="background-image: url(<?php echo get_theme_file_uri( '/assets/images/ocean.jpg' ); ?> );"></div>
         <div class="page-banner__content container container--narrow">
             <h1 class="page-banner__title"><?php the_title(); ?></h1>
-<!--            <div class="page-banner__intro">-->
-<!--                <p>Learn how the school of your dreams got started.</p>-->
-<!--            </div>-->
+            <div class="page-banner__intro">
+				<?php $eventDate = new DateTime( get_field( 'event_date' ) ); ?>
+                <p>Event date: <?php echo $eventDate->format('d M Y') ?></p>
+            </div>
         </div>
     </div>
 
