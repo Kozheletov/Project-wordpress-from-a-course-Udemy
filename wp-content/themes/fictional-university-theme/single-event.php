@@ -9,7 +9,7 @@ the_post();
             <h1 class="page-banner__title"><?php the_title(); ?></h1>
             <div class="page-banner__intro">
 				<?php $eventDate = new DateTime( get_field( 'event_date' ) ); ?>
-                <p>Event date: <?php echo $eventDate->format('d M Y') ?></p>
+                <p>Event date: <?php echo $eventDate->format( 'd M Y' ) ?></p>
             </div>
         </div>
     </div>
@@ -17,10 +17,15 @@ the_post();
     <div class="container container--narrow page-section">
         <div class="metabox metabox--position-up metabox--with-home-link">
             <p>
-                <a class="metabox__blog-home-link" href="<?php echo get_post_type_archive_link( 'event' ); ?>">
-                    Events Home
+				<?php
+				$currentDate = new DateTime();
+				?>
+                <a class="metabox__blog-home-link"
+                   href="<?php echo ( $eventDate > $currentDate ) ? get_post_type_archive_link( 'event' ) : site_url( '/past-events' ); ?>
+                   ">
+					<?php echo ( $eventDate > $currentDate ) ? 'Events Home' : 'Past Events' ?>
                 </a>
-                <span class="metabox__main"><?php the_title(); ?></span>
+                <span class=" metabox__main"><?php the_title(); ?></span>
             </p>
         </div>
         <div class="generic-content">
