@@ -23,6 +23,10 @@ function university_features() {
 	register_nav_menu( 'footerLocationOne', 'Footer Menu One' );
 	register_nav_menu( 'footerLocationTwo', 'Footer Menu Two' );
 	add_theme_support( 'title-tag' );
+	add_theme_support( 'post-thumbnails' );
+	add_image_size( 'professorLandscape', 400, 260, true );
+	add_image_size( 'professorPortrait', 480, 650, true );
+	add_image_size( 'pageBanner', 1500, 350, true );
 }
 
 add_action( 'after_setup_theme', 'university_features' );
@@ -50,6 +54,7 @@ function university_adjust_query( $query ) {
 		$query->set( 'posts_per_page', - 1 );
 	}
 
+	// filter for display events an archive-event page
 	if ( ! is_admin() && is_post_type_archive( 'event' ) && $query->is_main_query() ) {
 		$today = date( "Ymd" );
 		$query->set( 'meta_key', 'event_date' );
