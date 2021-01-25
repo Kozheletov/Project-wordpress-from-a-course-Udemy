@@ -1,5 +1,34 @@
 <?php
 
+function pageBanner( $args = null ) {
+	if ( ! $args['title'] ) {
+		$args['title'] = get_the_title();
+	}
+	if ( ! $args['subtitle'] ) {
+		$args['subtitle'] = get_field( 'page_banner_subtitle' );
+	}
+	if ( ! $args['photo'] ) {
+		if ( get_field( 'page_banner_background_image' && ! is_archive() && ! is_home() ) ) {
+			$args['photo'] = get_field( 'page_banner_background_image' )['sizes']['pageBanner'];
+		} else {
+			$args['photo'] = get_theme_file_uri( '/images/ocean.jpg' );
+		}
+	}
+	?>
+    <div class="page-banner">
+        <div class="page-banner__bg-image"
+             style="background-image: url(<?php echo $args['photo'] ?> );">
+        </div>
+        <div class="page-banner__content container container--narrow">
+            <h1 class="page-banner__title"><?php echo $args['title']; ?></h1>
+            <div class="page-banner__intro">
+                <p><?php echo $args['subtitle']; ?></p>
+            </div>
+        </div>
+    </div>
+	<?php
+}
+
 function university_files() {
 	wp_enqueue_style( 'google-custom-font',
 		'//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i' );
@@ -47,14 +76,14 @@ function university_excerpt_length() {
 add_filter( 'excerpt_length', 'university_excerpt_length' );
 
 function university_adjust_query( $query ) {
-	// filter for display programs an archive-program page
+// filter for display programs an archive-program page
 	if ( ! is_admin() && is_post_type_archive( 'program' ) && $query->is_main_query() ) {
 		$query->set( 'orderby', 'title' );
 		$query->set( 'order', 'ASC' );
 		$query->set( 'posts_per_page', - 1 );
 	}
 
-	// filter for display events an archive-event page
+// filter for display events an archive-event page
 	if ( ! is_admin() && is_post_type_archive( 'event' ) && $query->is_main_query() ) {
 		$today = date( "Ymd" );
 		$query->set( 'meta_key', 'event_date' );
