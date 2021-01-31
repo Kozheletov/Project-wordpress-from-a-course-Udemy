@@ -38,9 +38,12 @@ function university_files() {
 	} else {
 		wp_enqueue_script( 'our-vendor-js', get_theme_file_uri( '/bundled-assets/vendors~scripts.8c97d901916ad616a264.js' ), null, '1.0',
 			true );
-		wp_enqueue_script( 'main-university-js', get_theme_file_uri( '/bundled-assets/scripts.bc49dbb23afb98cfc0f7.js' ), null, '1.0',
+		wp_enqueue_script( 'main-university-js', get_theme_file_uri( '/bundled-assets/scripts.08d4128aa35719dbcaae.js' ), null, '1.0',
 			true );
-		wp_enqueue_style( 'our-main-styles', get_theme_file_uri( '/bundled-assets/styles.bc49dbb23afb98cfc0f7.css' ) );
+		wp_enqueue_style( 'our-main-styles', get_theme_file_uri( '/bundled-assets/styles.08d4128aa35719dbcaae.css' ) );
+	}
+	if ( get_post_type() === 'campus' ) {
+		wp_enqueue_script( 'two-gis-maps-script', "https://maps.api.2gis.ru/2.0/loader.js?pkg=full", null, '2.0', false );
 	}
 
 }
